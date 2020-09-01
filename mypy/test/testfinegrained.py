@@ -15,13 +15,14 @@ on specified sources.
 import os
 import re
 
+from glob import glob
 from typing import List, Dict, Any, Tuple, Union, cast
 
 from mypy import build
 from mypy.modulefinder import BuildSource
 from mypy.errors import CompileError
 from mypy.options import Options
-from mypy.test.config import test_temp_dir
+from mypy.test.config import test_data_prefix, test_temp_dir
 from mypy.test.data import (
     DataDrivenTestCase, DataSuite, UpdateFile, DeleteFile
 )
@@ -42,14 +43,7 @@ CHECK_CONSISTENCY = False
 
 
 class FineGrainedSuite(DataSuite):
-    files = [
-        'fine-grained.test',
-        'fine-grained-cycles.test',
-        'fine-grained-blockers.test',
-        'fine-grained-modules.test',
-        'fine-grained-follow-imports.test',
-        'fine-grained-suggest.test',
-    ]
+    files = glob(os.path.join(test_data_prefix, "fine-grained*.test"))
 
     # Whether to use the fine-grained cache in the testing. This is overridden
     # by a trivial subclass to produce a suite that uses the cache.
