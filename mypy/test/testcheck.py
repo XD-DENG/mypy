@@ -24,7 +24,7 @@ from mypy.semanal_main import core_modules
 
 
 # List of files that contain test case descriptions.
-typecheck_files = glob(os.path.join(test_data_prefix, "check-*.test"))
+typecheck_files = [os.path.basename(f) for f in glob(os.path.join(test_data_prefix, "check-*.test"))]
 
 # Tests that use Python 3.8-only AST features (like expression-scoped ignores):
 if sys.version_info < (3, 8):

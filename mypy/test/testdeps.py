@@ -24,7 +24,7 @@ dumped_modules = ['__main__', 'pkg', 'pkg.mod']
 
 
 class GetDependenciesSuite(DataSuite):
-    files = glob(os.path.join(test_data_prefix, "deps*.test"))
+    files = [os.path.basename(f) for f in glob(os.path.join(test_data_prefix, "deps*.test"))]
 
     def run_case(self, testcase: DataDrivenTestCase) -> None:
         src = '\n'.join(testcase.input)
