@@ -3,6 +3,7 @@
 import os
 from collections import defaultdict
 
+from glob import glob
 from typing import List, Tuple, Dict, Optional, Set
 from typing_extensions import DefaultDict
 
@@ -12,7 +13,7 @@ from mypy.errors import CompileError
 from mypy.nodes import MypyFile, Expression
 from mypy.options import Options
 from mypy.server.deps import get_dependencies
-from mypy.test.config import test_temp_dir
+from mypy.test.config import test_data_prefix, test_temp_dir
 from mypy.test.data import DataDrivenTestCase, DataSuite
 from mypy.test.helpers import assert_string_arrays_equal, parse_options
 from mypy.types import Type
@@ -23,14 +24,7 @@ dumped_modules = ['__main__', 'pkg', 'pkg.mod']
 
 
 class GetDependenciesSuite(DataSuite):
-    files = [
-        'deps.test',
-        'deps-types.test',
-        'deps-generics.test',
-        'deps-expressions.test',
-        'deps-statements.test',
-        'deps-classes.test',
-    ]
+    files = glob(os.path.join(test_data_prefix, "deps*.test"))
 
     def run_case(self, testcase: DataDrivenTestCase) -> None:
         src = '\n'.join(testcase.input)
