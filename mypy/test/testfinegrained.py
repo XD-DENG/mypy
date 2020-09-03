@@ -44,6 +44,7 @@ CHECK_CONSISTENCY = False
 
 class FineGrainedSuite(DataSuite):
     files = [os.path.basename(f) for f in glob(os.path.join(test_data_prefix, "fine-grained*.test"))]
+    files.remove("fine-grained-cache-incremental.test")
 
     # Whether to use the fine-grained cache in the testing. This is overridden
     # by a trivial subclass to produce a suite that uses the cache.
